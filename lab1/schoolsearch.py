@@ -11,7 +11,6 @@ def student(second, third, table):
 
 def teacher(second, third, table):
     if third != None:
-        print("Error: Teacher does not take a third argument: ", third)
         return
     for s in table:
         if s[6] == second or s[7] == second:
@@ -20,6 +19,7 @@ def teacher(second, third, table):
 def grade(second, third, table):
     gpa_max = 0
     gpa_min = 6
+    temp_student = None
     for s in table:
         if s[2] == second:
             if third == "H" or third == "High":
@@ -30,9 +30,9 @@ def grade(second, third, table):
                 if float(s[5]) < float(gpa_min):
                     gpa_min = s[5]
                     temp_student = s
-            else:
+            elif third == None:
                 print(s[0] + ", " + s[1])
-    if third != None:
+    if third != None and temp_student != None:
         print(temp_student[0] + ", " + temp_student[1] + ", " + temp_student[5] 
         + ", " + temp_student[6] + ", " + temp_student[7])
 
@@ -40,7 +40,6 @@ def average(second, third, table):
     if second == None:
         second = 0
     if third != None:
-        print("Error: Average does not take a third argument: ", third)
         return
     sum = 0
     count = 0
@@ -52,12 +51,11 @@ def average(second, third, table):
         avg = round(sum / count, 2)
     else:
         avg = 0
-    print(second + ", " + str(avg))
+    print(str(second) + ", " + str(avg))
 
 
 def bus(second, third, table):
     if third != None:
-        print("Error: Bus does not take a third argument: ", third)
         return
     for s in table:
         if second == s[4]:
@@ -71,11 +69,11 @@ def info(second, table):
         lst[int(s[2])] += 1
     print(lst)
 
-def prompt(table):
+def prompt(table, cmd):
     first = None
     second = None
     third = None
-    cmd = input("> ")
+
     args = cmd.split(" ")
     
     first = args[0]
@@ -84,11 +82,10 @@ def prompt(table):
     if len(args) > 2:
         third = args[2]
     if len(args) > 3:
-        print("Error: Unknown Argument:", cmd)
         return
     if first == "Q" or first == "Quit":
         if second != None:
-            print("Error: Quit does not take a tsecond argument: ", third)
+            return
         exit()
     elif first == "S" or first == "Student":
         student(second, third, table)
@@ -103,7 +100,6 @@ def prompt(table):
     elif first == "I" or first == "Info":
         info(second, table)
     else:
-        print("Error: Unknown Argument:", cmd)
         return
 
 def main():
@@ -116,9 +112,15 @@ def main():
             if not line:
                 break
             table.append(line.strip().split(","))
-
-    while True:
-        prompt(table)  
+    
+    if len(sys.argv) > 1:
+        with open(sys.argv[1]) as f:
+                for cmd in f:
+                    prompt(table, cmd)
+                    sys.stdout.flush()
+    else:
+        while True:
+            prompt(table, input("> "))        
 
 if __name__ == "__main__":
   main()

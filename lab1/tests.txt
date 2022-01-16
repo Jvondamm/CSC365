@@ -1,0 +1,54 @@
+a b c d e f g h i j k
+S COOKUS
+
+Student VILARDO 
+
+S SWEDLUND B
+
+S BOYTER Bus
+
+S no_student
+
+S extra extra
+
+T HANTZ
+T JED
+Teacher NISTENDIRK
+T no_teacher
+T extra extra
+
+B
+B 235723
+B 0
+B 5
+B 52
+B extra extra
+Bus 112
+
+G 0
+Grade 5
+G 10
+G extra
+G extra extra
+Grade 5 H
+Grade 4 High
+Grade 3 L
+Grade 2 Low
+Grade 2 extra
+
+A
+Average
+A 0
+Average 5
+Average 9023853
+Average extra
+Average extra extra
+
+I
+Info
+I extra
+I extra extra
+
+Quit extra
+Q extra extra
+Q

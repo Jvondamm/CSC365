@@ -15,4 +15,7 @@ debugging. Then I tested each function and made the apprpriate changes. I ran in
 typecasting issues that needed fixing as well as missing a lot of edge cases. Getting the code
 to work after I first ran it took about 40 minutes. 
 
-Notes on Testing:
+Notes on Testing: I created a the tests.txt and caught a few more edge cases. I then ran into a very peculiar bug,
+evident in the tests.out. The output wasn't catching everything. I ran each test individually and it did work fine,
+so I really don't know the issue. I thought it was print, but flushing the cache did nothing. Hopefully
+this won't deduct from my grade. 
