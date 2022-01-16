@@ -1,0 +1,18 @@
+Team Members: Joshua von Damm
+
+Initial Decision: I knew I wanted to write it in python, as it is simpler. 
+I also new a simple array of lists would work well for the students. 
+
+Task Log: I Initially wrote main, then wrote the prompt function,
+trying to follow each decision the user could make. Then I went
+function-by-function and wrote each case.
+I did it all in one go; total time took two hours to write the code. 
+
+I did what no programmer should do and didn't run my code once until it was
+finished. When I did, of course I ran into some syntax errors, such as forgetting some double
+equal signs, but was pleasently surprised that it would compile fairly early into the 
+debugging. Then I tested each function and made the apprpriate changes. I ran into some
+typecasting issues that needed fixing as well as missing a lot of edge cases. Getting the code
+to work after I first ran it took about 40 minutes. 
+
+Notes on Testing:
