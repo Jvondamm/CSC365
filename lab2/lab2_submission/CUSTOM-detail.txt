@@ -1,0 +1,14 @@
+a. https://relational.fit.cvut.cz/dataset/Mutagenesis From the University of Oxard, Department of Computer Science
+
+b. I have defined three tables, atom, bond, and molecule. The atom table an atom id which is the primary key, a molecule id which is unique, and an element, type, and charge.
+THe next table is the bond table, which is the bonds of two atoms. It represents this with two atom slots, atom1 id and atom2 id. These are both foreign keys that reference the 
+atom table's atom id. The third table is the molecule. It has a molecule id that is the foreign key of the atom table's molecule id. This table also has columns for element, type, 
+and charge. 
+
+c. There was some issue making molecule_id a foreign key in the molecule table, until I realized I needed to define the molecule_id in atom as unique. 
+
+d. 
+
+1. How many atoms bond with type 1 bonds? 
+2. All mutagneic molecules with a lumo values of < -1
+3. All bonds who have a net positive charge.

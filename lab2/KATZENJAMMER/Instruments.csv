@@ -1,0 +1,18 @@
+SongId,BandmateId,Instrument
+1,1,trumpet
+1,2,keyboard
+1,3,accordion
+1,4,bass balalaika
+2,1,trumpet
+2,2,drums
+2,3,guitar
+2,4,bass balalaika
+3,1,drums
+3,1,ukalele
+3,2,banjo
+3,3,bass balalaika
+3,4,keyboards
+4,1,drums
+4,2,ukalele
+4,3,accordion
+4,4,bass balalaika
