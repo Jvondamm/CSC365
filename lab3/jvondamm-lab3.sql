@@ -17,67 +17,71 @@ primary key (Receipt, Amount)
 );
 
 -- BAKERY-4
-CREATE TRIGGER constraint BEFORE INSERT ON goods
+DROP TRIGGER IF EXISTS constraint_weekends;
+
+CREATE TRIGGER constraint_weekends
+BEFORE INSERT ON items
 FOR EACH ROW BEGIN
-        DECLARE tempflavor varchar(100);
-        DECLARE tempfood varchar(100);
-        DECLARE tempdate DATE;
-        
-        SELECT Flavor into tempflavor from goods where goods.GId = new.Item;
-        SELECT Food into tempfood from goods where goods.GId = new.Item;
-        SELECT SaleDate INTO tempdate from receipts where receipts.RNumber = NEW.Receipt;
-        
-        if (tempflavor = "Almond" and tempfood = "Meringues") and (DAYOFWEEK(tempdate)=1 or DAYOFWEEK(tempdate)=7) then
-            SIGNAL SQLSTATE '45000'
-            set message_text 'No sale of Meringues of any flavor and all ALmond-falvored items on Saturdays and Sundays'
-        end if;
-    end;
+    DECLARE tempflavor varchar(100);
+    DECLARE tempfood varchar(100);
+    DECLARE tempdate DATE;
+    SELECT Flavor into tempflavor from goods where GId = new.Item;
+    SELECT Food into tempfood from goods where GId = new.Item;
+    SELECT SaleDate INTO tempdate from receipts where receipts.RNumber = new.Receipt;
+    if ((tempflavor = "Almond" or tempfood = "Meringue") and (DAYOFWEEK(tempdate)=1 or DAYOFWEEK(tempdate)=7)) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =  'No sale of Meringues of any flavor and all ALmond-flavored items on Saturdays and Sundays';
+    end if;
+END;
 
 -- AIRLINES-1
-create trigger constraint before insert on flights
-for each row 
-begin
+DROP TRIGGER IF EXISTS constraint_airlines;
+
+CREATE TRIGGER constraint_airlines
+BEFORE INSERT ON flights
+FOR EACH ROW BEGIN
     if(new.SourceAirport = new.DestAirport) then
-        SIGNAL SQLSTATE '45000'
-        set message_text 'SourceAirport and DestAirport must not be the same';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'SourceAirport and DestAirport must not be the same';
     end if;
 end;
 
 -- AIRLINES-2
-ALTER TABLE airlines
-    DROP COLUMN Partner;
+DROP TRIGGER IF EXISTS constraint_airlines2;
 
-ALTER TABLE airlines 
-ADD Partner varchar(100) UNIQUE NOT NULL FOREIGN KEY REFERENCES airlines(Abbreviation);
+ALTER TABLE airlines DROP COLUMN Partner;
+
+ALTER TABLE airlines
+ADD Partner varchar(100) UNIQUE;
+
+ALTER TABLE airlines
+ADD FOREIGN KEY (Partner) REFERENCES airlines(Abbreviation);
 
 UPDATE airlines
 SET Partner = "JetBlue"
 WHERE Abbreviation = "SouthWest";
 
 UPDATE airlines
-SET Partner = "SouthWest"
+SET Partner = "Southwest"
 WHERE Abbreviation = "JetBlue";
 
-create trigger constraint before insert on airlines
-    for each row
-    begin
+CREATE TRIGGER constraint_airlines2
+BEFORE INSERT ON airlines
+FOR EACH ROW BEGIN
         if (new.Partner = new.Abbreviation) then
-            SIGNAL SQLSTATE '45000'
-            set message_text 'Partner cannot be yourself';
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Partner cannot be yourself';
         end if;
 end;
 
 -- KATZENJAMMER-1
 update Instruments
-set Instrumnt 
+set Instrumnt
 where Instrument = 'bass balalaika'
 set Instrument = 'awesome bass balalaika';
 
 update Instruments
-set Instrumnt 
+set Instrumnt
 where Instrument = 'guitar'
 set Instrument = 'acoustic guitar';
 
 -- KATZENJAMMER-2
-DELETE FROM Vocals 
+DELETE FROM Vocals
 WHERE !((Bandmate = 1) and (Type = 'chorus'));
