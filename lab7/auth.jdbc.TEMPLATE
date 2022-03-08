@@ -1,0 +1,3 @@
+export HP_JDBC_URL=jdbc:mysql://db.labthreesixfive.com/jvondamm?autoReconnect=true&useSSL=false
+export HP_JDBC_USER=jvondamm
+export HP_JDBC_PW=
